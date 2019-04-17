@@ -1,0 +1,64 @@
+# Basic
+init_disparity_pivot_ratio: 0.5
+init_min_disparity: 32
+init_min_features: 16
+init_min_features_factor: 2
+init_min_inliers: 16
+init_min_tracked: 32
+pipeline_is_stereo: true
+automatic_reinitialization: true # When lost, stereo can recover immediately
+set_initial_attitude_from_gravity: true
+
+# Stereo triangulation depth range
+max_depth_inv: 0.5
+min_depth_inv: 2.0
+mean_depth_inv: 0.3
+
+# IMU
+use_imu: True
+img_align_prior_lambda_rot: 1   # Gyroscope prior in sparse image alignment
+poseoptim_prior_lambda: 4       # Gyroscope prior in pose optimization
+
+# Keyframe selection
+max_n_kfs: 10
+kfselect_criterion: FORWARD
+kfselect_numkfs_upper_thresh: 160 # If it has more features, it never creates a keyframe
+kfselect_numkfs_lower_thresh: 70 # If it has less features, it always creates a keyframe
+kfselect_min_num_frames_between_kfs: 2 # ..except this.
+kfselect_min_disparity: 30
+kfselect_min_angle: 20
+kfselect_min_dist_metric: 0.01
+update_seeds_with_old_keyframes: true
+
+# Image Alignment
+img_align_est_illumination_gain: true
+img_align_est_illumination_offset: true
+img_align_max_level: 5  # increase this level if image is double the size of VGA
+img_align_min_level: 2
+img_align_prior_lambda_trans: 1.0
+img_align_robustification: true
+img_align_use_distortion_jacobian: true
+
+poseoptim_thresh: 3.0               # reprojection threshold, maybe make a bit larger for larger images.
+poseoptim_using_unit_sphere: true
+
+depth_filter_affine_est_offset: true
+depth_filter_affine_est_gain: true
+
+# Reprojection
+use_async_reprojectors: True # For stereo, use multithreading in reprojector
+reproj_err_thresh: 0.5
+reproject_unconverged_seeds: false
+reprojector_affine_est_offset: true
+reprojector_affine_est_gain: true
+reprojector_max_n_kfs: 32 # Local map size. Larger is computationally more intensive. More reduces drift.
+
+# Feature detection
+max_fts: 180
+grid_size: 32 # Larger for larger images, for every cell you have max one feature
+n_pyr_levels: 4 # Increase for larger images (image align max minus one)
+detector_threshold_primary: 16 # Fast detector threshold
+detector_threshold_secondary: 128 # Edgelet detector threshold
+
+# Publication params
+publish_seeds: false
