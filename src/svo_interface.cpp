@@ -106,7 +106,7 @@ void SvoInterface::publishResults(
   switch (svo_->stage())
   {
     case Stage::kTracking: {
-      Eigen::Matrix<double, 6, 6> Covariance; // TODO
+      Eigen::Matrix<double, 6, 6> Covariance = Eigen::Matrix<double, 6, 6>::Identity(); // TODO
       visualizer_->publishImuPose(
             svo_->getLastFrames()->get_T_W_B(), Covariance, timestamp_nanoseconds);
       visualizer_->publishCameraPoses(svo_->getLastFrames(), timestamp_nanoseconds);
